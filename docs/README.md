@@ -31,6 +31,6 @@ All configuration of Standby Mode is done when calling `standbyM7()`. It takes o
 
 ## 👀 Examples
 
-- [Standby](../examples/Standby): This example demonstrates how to enter Standby Mode for a few seconds and then wake up again. It's also possible to wake up early by pulling the NRST pin low.
-- [AllowDeepSleep](../examples/AllowDeepSleep): This example demonstrates how to enable Deep Sleep Mode.
-- [DeepSleepLockDebug](../examples/DeepSleepLockDebug): This example demonstrates how to debug Deep Sleep Lock problems.
+- [Standby](../examples/Standby_Example): This example demonstrates how to enter Standby Mode for a few seconds and then wake up again. It's also possible to wake up early by pulling the NRST pin low.
+- [AllowDeepSleep](../examples/AllowDeepSleep_Example): This example demonstrates how to enable Deep Sleep Mode.
+- [DeepSleepLockDebug](../examples/DeepSleepLockDebug_Example): This example demonstrates how to debug Deep Sleep Lock problems.
