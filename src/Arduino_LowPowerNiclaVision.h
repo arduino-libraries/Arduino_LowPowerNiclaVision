@@ -40,7 +40,7 @@
 
 /**
  * @enum LowPowerReturnCode
- * @brief Provides the return codes for the standby operations.
+ * @brief Provides the return codes for the library API functions.
  * The codes indicate the success or failure of the operations.
  */
 enum class LowPowerReturnCode
@@ -62,8 +62,7 @@ enum class LowPowerReturnCode
 /**
  * @enum CPUMode
  * @brief Provides the different modes of the CPU.
- * Those can be used to determine in which standby mode the CPU
- * was before waking up.
+ * Those can be used to determine in which mode the CPU was before waking up.
 */
 enum class CPUMode
 {
@@ -80,7 +79,7 @@ enum class CPUMode
 */
 
 /**
- * @brief The RTCWakeupDelay class represents a delay before waking up from a low power mode.
+ * @brief The RTCWakeupDelay class represents a delay before waking up from Standby Mode.
 */
 class RTCWakeupDelay {
     public:
@@ -126,9 +125,9 @@ class RTCWakeupDelay {
  * 
  * The LowPowerPortentaH7 class allows the microcontroller on the Nicla Vision board
  * to enter low power modes such as Standby Mode and Deep Sleep Mode. It provides
- * functions to check the current mode, prepare the option bytes for entering Standby Mode,
+ * functions to check the mode before start up, prepare the option bytes for entering Standby Mode,
  * and control the M4 and M7 cores independently. It also provides functions to measure
- * the time since boot, time spent in idle, sleep, and deep sleep modes.
+ * the time since boot, time spent in Idle, Sleep, and Deep Sleep modes.
  * 
  * This class is a singleton and shall always be accessed through the global LowPower object.
  * 
@@ -192,17 +191,17 @@ class LowPowerNiclaVision {
         */
         LowPowerReturnCode prepareOptionBytes() const;
         /**
-        * @brief Reset the flags behind the modeWas...() functions.
+        * @brief Reset the flags behind the wasInCPUMode() function.
         */
         void resetPreviousCPUModeFlags() const;
         /**
-        * @brief Make the M4 core enter Standby Mode.
+        * @brief Make the M4 core and domain D2 enter standby mode.
         * @return A constant from the LowPowerReturnCode enum.
         */
         LowPowerReturnCode standbyM4() const;
         // -->
         /**
-        * @brief Make the M7 core enter Standby Mode.
+        * @brief Make the M7 core and D2 domain enter standby mode, and make it possible for the D3 domain to do so.
         * @param delay The delay before waking up again.
         * @return A constant from the LowPowerReturnCode enum.
         */
