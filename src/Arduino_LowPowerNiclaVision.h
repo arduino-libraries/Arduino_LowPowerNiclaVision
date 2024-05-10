@@ -38,6 +38,11 @@
 ********************************************************************************
 */
 
+/**
+ * @enum LowPowerReturnCode
+ * @brief Provides the return codes for the standby operations.
+ * The codes indicate the success or failure of the operations.
+ */
 enum class LowPowerReturnCode
 {
     success,                    ///< The call was successful
@@ -74,6 +79,9 @@ enum class CPUMode
 ********************************************************************************
 */
 
+/**
+ * @brief The RTCWakeupDelay class represents a delay before waking up from a low power mode.
+*/
 class RTCWakeupDelay {
     public:
         /**
@@ -95,6 +103,10 @@ class RTCWakeupDelay {
         // We don't really need this large type, but we must use this specific
         // type for user-defined literals to work.
         unsigned long long int value;
+        /**
+        * @brief Private constructor to create a delay object with a specific delay value.
+        * @param delay The delay value in seconds.
+        */
         RTCWakeupDelay(const unsigned long long int delay) : value(delay)
         {
         }
@@ -108,6 +120,20 @@ class RTCWakeupDelay {
         friend class LowPowerNiclaVision;
 };
 
+/**
+ * @class LowPowerNiclaVision
+ * @brief A class that provides low power functionality for the Nicla Vision board.
+ * 
+ * The LowPowerPortentaH7 class allows the microcontroller on the Nicla Vision board
+ * to enter low power modes such as Standby Mode and Deep Sleep Mode. It provides
+ * functions to check the current mode, prepare the option bytes for entering Standby Mode,
+ * and control the M4 and M7 cores independently. It also provides functions to measure
+ * the time since boot, time spent in idle, sleep, and deep sleep modes.
+ * 
+ * This class is a singleton and shall always be accessed through the global LowPower object.
+ * 
+ * @note This class is specific to the Nicla Vision board.
+ */
 class LowPowerNiclaVision {
     private:
         LowPowerNiclaVision()    = default;
@@ -116,6 +142,14 @@ class LowPowerNiclaVision {
         void waitForFlashReady() const;
 
     public:
+        /// @cond DEV
+        /**
+         * Returns the singleton instance of the LowPowerNiclaVision class.
+         * Due to the way the low power modes are configured, only one instance
+         * of this class can exist at a time.
+         *
+         * @return The singleton instance of the LowPowerNiclaVision class.
+         */
         static LowPowerNiclaVision& getInstance() noexcept {
             static LowPowerNiclaVision instance;
             return instance;
@@ -124,6 +158,8 @@ class LowPowerNiclaVision {
         LowPowerNiclaVision(LowPowerNiclaVision&&)                    = delete;
         LowPowerNiclaVision& operator=(const LowPowerNiclaVision&)    = delete;
         LowPowerNiclaVision& operator=(LowPowerNiclaVision&&)         = delete;
+
+        /// @endcond
 
         /**
         * @brief Make Deep Sleep possible in the default case.
@@ -211,6 +247,9 @@ class LowPowerNiclaVision {
 ********************************************************************************
 */
 
+/**
+ * @brief The global LowPower singleton object provides access to low power features of the Portenta H7 board.
+ */
 extern const LowPowerNiclaVision& LowPower;
 
 /*
@@ -219,9 +258,33 @@ extern const LowPowerNiclaVision& LowPower;
 ********************************************************************************
 */
 
+/**
+ * @brief Literals operator to add multiple delays together. e.g. 5_s + 10_min + 2_h
+ * @param d1 The first delay.
+ * @param d2 The second delay.
+ * @return The sum of the two delays.
+*/
 RTCWakeupDelay operator+(const RTCWakeupDelay d1, const RTCWakeupDelay d2);
+
+/**
+ * @brief Literals operator to create a delay in seconds.
+ * @param seconds The number of seconds to wait before waking up.
+ * @return The delay object.
+*/
 RTCWakeupDelay operator""_s(const unsigned long long int seconds);
+
+/**
+ * @brief Literals operator to create a delay in minutes.
+ * @param minutes The number of minutes to wait before waking up.
+ * @return The delay object.
+*/
 RTCWakeupDelay operator""_min(const unsigned long long int minutes);
+
+/**
+ * @brief Literals operator to create a delay in hours.
+ * @param hours The number of hours to wait before waking up.
+ * @return The delay object.
+*/
 RTCWakeupDelay operator""_h(const unsigned long long int minutes);
 
 #endif  // End of header guard
