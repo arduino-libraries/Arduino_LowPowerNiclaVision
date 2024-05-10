@@ -133,26 +133,6 @@ LowPowerReturnCode LowPowerNiclaVision::checkOptionBytes() const
     return LowPowerReturnCode::success;
 }
 
-bool LowPowerNiclaVision::modeWasD1Standby() const
-{
-    return PWR->CPUCR & PWR_CPUCR_SBF_D1;
-}
-
-bool LowPowerNiclaVision::modeWasD2Standby() const
-{
-    return PWR->CPUCR & PWR_CPUCR_SBF_D2;
-}
-
-bool LowPowerNiclaVision::modeWasStandby() const
-{
-    return PWR->CPUCR & PWR_CPUCR_SBF;
-}
-
-bool LowPowerNiclaVision::modeWasStop() const
-{
-    return PWR->CPUCR & PWR_CPUCR_STOPF;
-}
-
 // This function uses undocumented features of Mbed to retrieve the number
 // of active deep sleep locks. It is experimental and may break at any time,
 // but can be handy for some users to debug deep sleep lock problems.
@@ -199,7 +179,7 @@ LowPowerReturnCode LowPowerNiclaVision::prepareOptionBytes() const
     return LowPowerReturnCode::obLaunchFailed;
 }
 
-void LowPowerNiclaVision::resetPreviousMode() const
+void LowPowerNiclaVision::resetPreviousCPUModeFlags() const
 {
     PWR->CPUCR |= PWR_CPUCR_CSSF;
 }
@@ -233,7 +213,7 @@ LowPowerReturnCode LowPowerNiclaVision::standbyM4() const
     // <--
 
     // Disable and clear all pending interrupts in the NVIC. There are 8
-    // registers in the Cortex-M7.
+    // registers in the Cortex-M4.
     for (auto i = 0; i < 8; i++)
     {
         NVIC->ICER[i] = 0xffffffff;
@@ -486,4 +466,21 @@ void LowPowerNiclaVision::waitForFlashReady() const
     // 0x07 = QW, WBNE, and BSY flags
     while ((FLASH->SR1 & 0x07) || (FLASH->SR2 & 0x07))
       ;
+}
+
+bool LowPowerNiclaVision::wasInCPUMode(CPUMode mode) const
+{
+    switch (mode)
+    {
+        case CPUMode::d1DomainStandby:
+            return PWR->CPUCR & PWR_CPUCR_SBF_D1;
+        case CPUMode::d2DomainStandby:
+            return PWR->CPUCR & PWR_CPUCR_SBF_D2;
+        case CPUMode::standby:
+            return PWR->CPUCR & PWR_CPUCR_SBF;
+        case CPUMode::stop:
+            return PWR->CPUCR & PWR_CPUCR_STOPF;
+        default:
+            return false;
+    }
 }

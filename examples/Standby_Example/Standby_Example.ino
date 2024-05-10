@@ -72,28 +72,30 @@ void setup() {
   digitalWrite(LEDR, LOW);
   digitalWrite(LEDG, LOW);
   delay(500);
-  if (LowPower.modeWasStandby())
+
+
+  if (LowPower.wasInCPUMode(CPUMode::standby))
   {
     digitalWrite(LEDB, HIGH);
     digitalWrite(LEDR, HIGH);
     digitalWrite(LEDG, LOW);
     delay(2500);
   }
-  if (LowPower.modeWasD1Standby())
+  if (LowPower.wasInCPUMode(CPUMode::d1DomainStandby))
   {
     digitalWrite(LEDB, LOW);
     digitalWrite(LEDR, HIGH);
     digitalWrite(LEDG, HIGH);
     delay(2500);      
   }
-  if (LowPower.modeWasD2Standby())
+  if (LowPower.wasInCPUMode(CPUMode::d2DomainStandby))
   {
     digitalWrite(LEDB, HIGH);
     digitalWrite(LEDR, LOW);
     digitalWrite(LEDG, HIGH);
     delay(2500);      
   }
-  if (LowPower.modeWasStop())
+  if (LowPower.wasInCPUMode(CPUMode::stop))
   {
     digitalWrite(LEDB, LOW);
     digitalWrite(LEDR, LOW);
@@ -108,7 +110,7 @@ void setup() {
   digitalWrite(LEDR, LOW);
   digitalWrite(LEDG, LOW);
   delay(500);
-  LowPower.resetPreviousMode();
+  LowPower.resetPreviousCPUModeFlags();
 #endif
   // <--
 
