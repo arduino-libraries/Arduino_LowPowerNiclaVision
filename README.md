@@ -1,5 +1,9 @@
 # ⚡️ Arduino Nicla Vision Low Power Library
 
+[![Compile Examples](https://github.com/bcmi-labs/Arduino_LowPowerNiclaVision/workflows/Compile%20Examples/badge.svg)](https://github.com/bcmi-labs/Arduino_LowPowerNiclaVision/actions?workflow=Compile+Examples)
+[![Arduino Lint](https://github.com/bcmi-labs/Arduino_LowPowerNiclaVision/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/bcmi-labs/Arduino_LowPowerNiclaVision/actions/workflows/arduino-lint.yml)
+[![Sync Labels status](https://github.com/bcmi-labs/Arduino_LowPowerNiclaVision/actions/workflows/sync-labels.yml/badge.svg)](https://github.com/bcmi-labs/Arduino_LowPowerNiclaVision/actions/workflows/sync-labels.yml)
+
 [![License](https://img.shields.io/badge/License-MPL_2.0-blue)](http://mozilla.org/MPL/2.0/)
 
 The Arduino Nicla Vision Low Power library provides functionality to enable, get information about, and debug low-power modes on the Nicla Vision board.
