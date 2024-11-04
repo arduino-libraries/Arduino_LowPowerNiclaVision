@@ -125,7 +125,7 @@ void setup() {
 #if defined CORE_CM7
   LowPower.standbyM7();
   // The following is an alternative way to go into standby for 10 seconds
-//  LowPower.standbyM7(LowPowerStandbyType::untilTimeElapsed, RTCWakeupDelay(0, 0, 10));
+//  LowPower.standbyM7(RTCWakeupDelay(0, 0, 10));
 #else
   LowPower.standbyM4();
 #endif
