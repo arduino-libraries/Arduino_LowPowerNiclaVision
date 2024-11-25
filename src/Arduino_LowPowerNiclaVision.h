@@ -111,8 +111,8 @@ class RTCWakeupDelay {
         }
 
         friend RTCWakeupDelay operator""_s(const unsigned long long int seconds);
-        friend RTCWakeupDelay operator""_min(const unsigned long long int seconds);
-        friend RTCWakeupDelay operator""_h(const unsigned long long int seconds);
+        friend RTCWakeupDelay operator""_min(const unsigned long long int minutes);
+        friend RTCWakeupDelay operator""_h(const unsigned long long int hours);
         friend RTCWakeupDelay operator+(const RTCWakeupDelay d1,
                                         const RTCWakeupDelay d2);
 
@@ -284,6 +284,6 @@ RTCWakeupDelay operator""_min(const unsigned long long int minutes);
  * @param hours The number of hours to wait before waking up.
  * @return The delay object.
 */
-RTCWakeupDelay operator""_h(const unsigned long long int minutes);
+RTCWakeupDelay operator""_h(const unsigned long long int hours);
 
 #endif  // End of header guard
